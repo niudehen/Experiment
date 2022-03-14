@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Labyrinth.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.cpp1-assembler { color: #0000FF; }
+.cpp1-character { color: #000000; }
+.cpp1-comment { color: #0078D7; font-style: italic; }
+.cpp1-float { color: #800080; }
+.cpp1-hexadecimal { color: #800080; }
+.cpp1-identifier { color: #000000; }
+.cpp1-illegalchar { color: #000000; }
+.cpp1-number { color: #800080; }
+.cpp1-octal { color: #800080; }
+.cpp1-preprocessor { color: #008000; }
+.cpp1-reservedword { color: #000000; font-weight: bold; }
+.cpp1-space { background-color: #FFFFFF; color: #000000; }
+.cpp1-string { color: #0000FF; font-weight: bold; }
+.cpp1-symbol { color: #FF0000; font-weight: bold; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 18pt Consolas;"><span class="cpp1-preprocessor">#include&lt;stdio.h&gt;
+#include&lt;windows.h&gt;
+#include&lt;conio.h&gt;
+#define ROW 9
+#define COL 11
+</span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">ROW</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">COL</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">]={
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;*#*********&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;***###*###*&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;###**#****#&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;*#**###**#*&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;***********&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">        </span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;#####*##*##&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;**#*****#*E&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;***#*###**#&quot;</span><span class="cpp1-symbol">},
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{</span><span class="cpp1-string">&quot;*#*********&quot;</span><span class="cpp1-symbol">},
+};
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> print_map</span><span class="cpp1-symbol">()
+{
+</span><span class="cpp1-space">	</span><span class="cpp1-reservedword">for</span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> i</span><span class="cpp1-symbol">=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">&lt;</span><span class="cpp1-identifier">ROW</span><span class="cpp1-symbol">;</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">++)
+</span><span class="cpp1-space">	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">		puts</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">i</span><span class="cpp1-symbol">]);
+</span><span class="cpp1-space">	</span><span class="cpp1-symbol">}
+}
+
+</span><span class="cpp1-reservedword">void</span><span class="cpp1-space"> show_cursor</span><span class="cpp1-symbol">(</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> x</span><span class="cpp1-symbol">,</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> y</span><span class="cpp1-symbol">)
+{
+</span><span class="cpp1-space">	COORD pos</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">	pos</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">X</span><span class="cpp1-symbol">=</span><span class="cpp1-identifier">x</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">	pos</span><span class="cpp1-symbol">.</span><span class="cpp1-identifier">Y</span><span class="cpp1-symbol">=</span><span class="cpp1-identifier">y</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">	printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;curX=%d,curY=%d\n&quot;</span><span class="cpp1-symbol">,</span><span class="cpp1-identifier">x</span><span class="cpp1-symbol">,</span><span class="cpp1-identifier">y</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">	SetConsoleCursorPosition</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">GetStdHandle</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">STD_OUTPUT_HANDLE</span><span class="cpp1-symbol">),</span><span class="cpp1-identifier">pos</span><span class="cpp1-symbol">);
+}
+
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> curX</span><span class="cpp1-symbol">,</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">;
+</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> main</span><span class="cpp1-symbol">()
+{
+</span><span class="cpp1-space">	</span><span class="cpp1-reservedword">while</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">	</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">		system</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;cls&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">		print_map</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">		show_cursor</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">,</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">char</span><span class="cpp1-space"> t</span><span class="cpp1-symbol">=</span><span class="cpp1-identifier">getch</span><span class="cpp1-symbol">();
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">t</span><span class="cpp1-symbol">==</span><span class="cpp1-character">'w'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)&gt;=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">&amp;&amp;(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'*'</span><span class="cpp1-symbol">||</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">))</span><span class="cpp1-space"> curY</span><span class="cpp1-symbol">--;
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">else</span><span class="cpp1-space"> </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">t</span><span class="cpp1-symbol">==</span><span class="cpp1-character">'s'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)&lt;</span><span class="cpp1-identifier">ROW</span><span class="cpp1-symbol">&amp;&amp;(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'*'</span><span class="cpp1-symbol">||</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">))</span><span class="cpp1-space"> curY</span><span class="cpp1-symbol">++;
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">else</span><span class="cpp1-space"> </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">t</span><span class="cpp1-symbol">==</span><span class="cpp1-character">'s'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)&lt;</span><span class="cpp1-identifier">ROW</span><span class="cpp1-symbol">&amp;&amp;(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'*'</span><span class="cpp1-symbol">||</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">))</span><span class="cpp1-space"> curY</span><span class="cpp1-symbol">++;
+</span><span class="cpp1-space">			
+		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">else</span><span class="cpp1-space"> </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">t</span><span class="cpp1-symbol">==</span><span class="cpp1-character">'a'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)&gt;=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">&amp;&amp;(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'*'</span><span class="cpp1-symbol">||</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">))</span><span class="cpp1-space"> curX</span><span class="cpp1-symbol">--;
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">else</span><span class="cpp1-space"> </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">t</span><span class="cpp1-symbol">=</span><span class="cpp1-character">'d'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">((</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)&lt;</span><span class="cpp1-identifier">COL</span><span class="cpp1-symbol">&amp;&amp;(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'*'</span><span class="cpp1-symbol">||</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">))</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">++;
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">		</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(</span><span class="cpp1-identifier">map</span><span class="cpp1-symbol">[</span><span class="cpp1-identifier">curY</span><span class="cpp1-symbol">][</span><span class="cpp1-identifier">curX</span><span class="cpp1-symbol">]==</span><span class="cpp1-character">'E'</span><span class="cpp1-symbol">)
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">{
+</span><span class="cpp1-space">			printf</span><span class="cpp1-symbol">(</span><span class="cpp1-string">&quot;yeah!congratulations.\t&quot;</span><span class="cpp1-symbol">);
+</span><span class="cpp1-space">			</span><span class="cpp1-reservedword">break</span><span class="cpp1-symbol">;
+</span><span class="cpp1-space">		</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">	</span><span class="cpp1-symbol">}
+</span><span class="cpp1-space">	</span><span class="cpp1-reservedword">return</span><span class="cpp1-space"> </span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+}
+
+
+
+
+
+
+
+</span></span>
+</code></pre>
+</body>
+</html>
